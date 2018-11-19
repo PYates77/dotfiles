@@ -1,0 +1,15 @@
+[user]
+	email = paul.yates@m2mdtech.com
+	name = Paul Yates
+[push]
+	default = simple
+[color]
+	ui = auto
+[core]
+	editor = vim
+[alias]
+	conflicted = !vim +Conflicted
+[pull]
+	rebase = true
+[mu-repo]
+	remote-base-url = https://github.com/PYates77/
