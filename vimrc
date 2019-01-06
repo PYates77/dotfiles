@@ -61,6 +61,9 @@ let g:NERDToggleCheckAllLines = 1
 """""" Conflicted Config 
 set stl+=%{ConflictedVersion()}
 
+"""""" Lastplace
+let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommig"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,6 +83,12 @@ set autoread
 " (useful for handling the permission-denied error)
 "command W w !sudo tee % > /dev/null
 
+" Jump to the last known cursor position on file open
+" using the plugin vim-lastplace instead
+" autocmd BufReadPost *
+            " \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+            " \   exe "normal! g`\"" |
+            " \ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -109,7 +118,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -127,7 +136,7 @@ set smartcase
 " Highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
+" starts searching while you are typing
 set incsearch 
 
 " Don't redraw while executing macros (good performance config)
@@ -243,6 +252,10 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable mouse control
+set mouse=a
+
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?

@@ -4,21 +4,31 @@
 # It is always evolving, so don't think anything is set in stone
 # Dependencies:
 #   compton - for window transparency, etc
-#   wcid-client - wifi widget
 #   volumeicon-alsa - volume widget
 #   i3-battery-popup - https://github.com/rjekker/i3-battery-popup
 #   scrot - screenshots
+#   i3-exit from https://github.com/uranix/i3-settings/blob/master/i3-exit
 #   feh - background and image viewer 
+#   xautolock - auto screensaver 
+#   lights-on.sh - detects fullscreen video and prevents screensaver https://github.com/iye/lightsOn/blob/master/lightsOn.sh
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 #set mod to windows key
 set $mod Mod4
 
+set $lmonitor "DP-1-1"
+set $rmonitor "DP-1-2"
+
 ###### SCRIPTS TO RUN ON I3 STARTUP ###########
+#setup external monitors
+#exec --no-startup-id ~/Desktop/configure_monitors.sh
+exec --no-startup-id xrandr --output $lmonitor --auto --left-of $rmonitor 
+exec --no-startup-id xrandr --output $rmonitor --auto
+exec --no-startup-id xrandr --output $lmonitor --primary
 exec --no-startup-id compton -b #Xorg window compositor, for window transparency, etc
-exec --no-startup-id wicd-client --tray #Network connection manager and tray icon
-exec --no-startup-id volumeicon #ALSA mixer volume icon in tray
+#exec --no-startup-id nm-applet #Network connection manager and tray icon
+#exec --no-startup-id volumeicon #ALSA mixer volume icon in tray
 
 exec --no-startup-id i3-battery-popup -n -i /usr/local/share/i3-battery-popup
 
@@ -63,7 +73,11 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop 
+# or you could use rofi
+#bindsym $mod+d exec --no-startup-id rofi -show run  #run mode
+bindsym $mod+d exec --no-startup-id rofi -show drun  #desktop run mode (uses desktop names instead of executable names)
+bindsym $mod+Shift+d exec --no-startup-id rofi -show window  #winddow switcher mode 
 
 # change focus
 bindsym $mod+h focus left
@@ -159,6 +173,18 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# set workspaces to different monitors
+workspace $ws1 output $lmonitor
+workspace $ws2 output $lmonitor
+workspace $ws3 output $lmonitor
+workspace $ws4 output $lmonitor
+workspace $ws5 output $lmonitor
+workspace $ws6 output $rmonitor
+workspace $ws7 output $rmonitor
+workspace $ws8 output $rmonitor
+workspace $ws9 output $rmonitor
+workspace $ws10 output $rmonitor
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -168,7 +194,8 @@ bindsym $mod+Shift+r restart
 # Default method using i3-nagbar
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # fancy method using custom script i3-exit from https://github.com/uranix/i3-settings/blob/master/i3-exit
-bindsym $mod+Shift+e exec "i3-exit"
+# i installed i3-exit in /usr/local/bin
+bindsym $mod+Shift+e exec i3-exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -208,12 +235,15 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #background
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/ubuntublack.jpg
+exec --no-startup-id feh --bg-tile ~/Pictures/m2md/m2md_logo_manual_grey.png
 
 #lock
-bindsym $mod+F1 exec i3lock -u -i ~/Pictures/wallpapers/brokenscreen.png -e
-#i'm not really sure if this works, but I wrote a script to blink the keyboard backlight when the screen lock is about to time-in as a non-intrusive warning
-exec --no-startup-id xautolock -time 5 -warn -warner 'kbdbacklightblink.sh' -locker 'i3lock -u -i ~/Pictures/wallpapers/brokenscreen.png -e' -corners 0+0- & 
+#i made a fancy mod of i3lock called i3lock-m2md
+bindsym $mod+F1 exec i3lock-m2md -i ~/Pictures/m2md/m2md_logo_manual_grey.png -t -e -f 
+bindsym XF86Sleep exec i3lock-m2md -i ~/Pictures/m2md/m2md_logo_manual_grey.png -t -e -f
+exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
+#bindsym $mod+F1 exec i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t
+#exec --no-startup-id xautolock -time 5 -locker 'i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t' -corners 0+0- & 
 exec --no-startup-id ~/.local/bin/lights-on.sh
 
 #screenshots
@@ -224,11 +254,19 @@ bindsym --release $mod+Print exec "scrot -u -d 1 'screenshot_%Y-%m-%d-%H:%M:%S.p
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # i3bar config is under ~/.config/i3status/config
-bar {
-    status_command i3status
-	position top
-	font pango:monospace 12	
-}
+# bar {
+    # status_command i3status
+	# position top
+	# font pango:monospace 15	
+# }
+
+# If using polybar 
+# polybar config is under ~/.config/polybar/config
+# bar {
+    # status_command polybar carbo
+    # position top
+# }
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 
 ########### Function Key Keybindings ##############
@@ -255,8 +293,8 @@ smart_gaps on
 smart_borders on
 
 # Set inner/outer gaps
-gaps inner 12
-gaps outer -2
+gaps inner 40
+gaps outer -5
 
 # Gaps mode
 set $mode_gaps Gaps: (o) outer, (i) inner
