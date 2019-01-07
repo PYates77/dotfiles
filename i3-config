@@ -1,7 +1,7 @@
 # i3 config file (v4)
 #
 # This is Paul's i3-gaps config file
-# It is always evolving, so don't think anything is set in stone
+# Things are still being optimized
 # Dependencies:
 #   compton - for window transparency, etc
 #   volumeicon-alsa - volume widget
@@ -10,6 +10,7 @@
 #   i3-exit from https://github.com/uranix/i3-settings/blob/master/i3-exit
 #   feh - background and image viewer 
 #   xautolock - auto screensaver 
+#   i3-exit - https://github.com/uranix/i3-settings/blob/master/i3-exit
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -60,7 +61,8 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec termite
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -74,7 +76,7 @@ bindsym $mod+Shift+q kill
 # or you could use rofi
 #bindsym $mod+d exec --no-startup-id rofi -show run  #run mode
 bindsym $mod+d exec --no-startup-id rofi -show drun  #desktop run mode (uses desktop names instead of executable names)
-bindsym $mod+Shift+d exec --no-startup-id rofi -show window  #winddow switcher mode 
+bindsym $mod+Shift+d exec --no-startup-id rofi -show window  #window switcher mode 
 
 # change focus
 bindsym $mod+h focus left
@@ -246,10 +248,10 @@ bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
 # Default method using i3-nagbar
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # fancy method using custom script i3-exit from https://github.com/uranix/i3-settings/blob/master/i3-exit
 # i installed i3-exit in /usr/local/bin
-bindsym $mod+Shift+e exec i3-exit
+#bindsym $mod+Shift+e exec "i3-exit"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -289,7 +291,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #background
-exec --no-startup-id feh --bg-tile ~/Pictures/m2md/m2md_logo_manual_grey.png
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/arch_background.jpg
 
 #lock
 #i made a fancy mod of i3lock called i3lock-m2md
@@ -312,7 +314,7 @@ bindsym --release $mod+Print exec "scrot -u -d 1 'screenshot_%Y-%m-%d-%H:%M:%S.p
 # bar {
     # status_command i3status
 	# position top
-	# font pango:monospace 15	
+	# font pango:monospace 11	
 # }
 
 # If using polybar 

@@ -5,27 +5,27 @@ general {
 }
 
 #order += "ipv6"
-order += "disk /"
 #order += "run_watch DHCP"
 #order += "run_watch VPNC"
 #order += "path_exists VPN"
-#order += "wireless wlan0"
-#order += "ethernet eth0"
-order += "battery 0"
+order += "wireless wlp4s0"
+order += "ethernet enp3s0"
+#order += "battery 0"
 #order += "cpu_temperature 0"
-#order += "load"
+order += "disk /"
+order += "load"
 order += "tztime local"
 #order += "tztime berlin"
 
-wireless wlan0 {
-        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_down = "W: down"
+wireless wlp4s0 {
+        format_up = "%essid %ip (%bitrate%quality)"
+        format_down = "Wlan"
 }
 
-ethernet eth0 {
+ethernet enp3s0 {
         # if you use %speed, i3status requires the cap_net_admin capability
         format_up = "E: %ip (%speed)"
-        format_down = "E: down"
+        format_down = "Eth"
 }
 
 battery 0 {
@@ -62,7 +62,7 @@ tztime berlin {
 }
 
 load {
-        format = "%5min"
+        format = "CPU: %5min"
 }
 
 cpu_temperature 0 {
@@ -71,5 +71,5 @@ cpu_temperature 0 {
 }
 
 disk "/" {
-        format = "%free"
+        format = "Disk free: %free"
 }
