@@ -11,15 +11,17 @@
 #   feh - background and image viewer 
 #   xautolock - auto screensaver 
 #   i3-exit - https://github.com/uranix/i3-settings/blob/master/i3-exit
+#   
+# If you have a multi monitor setup, create a script ~/Desktop/configure_monitors.sh
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 #set mod to windows key
 set $mod Mod4
 
-set $lmonitor "DP-1-1"
-set $rmonitor "DP-1-2"
-set $lastmonitor "eDP-1"
+#set $lmonitor "DP-1-1"
+#set $rmonitor "DP-1-2"
+#set $lastmonitor "eDP-1"
 
 ###### SCRIPTS TO RUN ON I3 STARTUP ###########
 #setup external monitors
