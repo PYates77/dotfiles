@@ -7,50 +7,39 @@ git="$HOME/.gitconfig"
 i3="$HOME/.config/i3/config"
 i3status="$HOME/.config/i3status/config"
 polybar="$HOME/.config/polybar/config"
-polybar_launch="$HOME/.config/polybar/launch.sh"
+polybar-launch="$HOME/.config/polybar/launch.sh"
 tmux="$HOME/.tmux.conf"
 vim="$HOME/.vimrc"
 zsh="$HOME/.zshrc"
 
-# COMPTON
-cp -Lr $compton $compton.bak
-ln -sf $dir/compton.conf $compton
+install_file()
+{
+    file=$1; shift
+    path=$1;
 
-# GIT
-cp -Lr $git $git.bak
-ln -sf $dir/gitconfig $git
+    if [ ! -d $(dirname $path) ]; then
+        mkdir -p $(dirname $path)
+    fi
+    cp -Lr $i3 $i3.bak
+    ln -sf $dir/$file $path
 
-# I3
-if [ ! -d $(dirname $i3) ]; then
-    mkdir -p $(dirname $i3)
-fi
-cp -Lr $i3 $i3.bak
-ln -sf $dir/i3-config $i3
+}
 
-# I3-STATUS
-if [ ! -d $(dirname $i3status) ]; then
-    mkdir -p $(dirname $i3status)
-fi
-cp -Lr $i3status $i3status.bak
-ln -sf $dir/i3status-config $i3status
+install_file compton.conf $compton
 
-# POLYBAR
-if [ ! -d $(dirname $polybar) ]; then
-    mkdir -p $(dirname $polybar)
-fi
-cp -Lr $polybar $polybar.bak
-ln -sf $dir/polybar-config $polybar
-cp -Lr $polybar_launch $polybar_launch.bak
-ln -sf $dir/polybar_launch $polybar_launch
+install_file gitconfig $git
 
-# TMUX
-cp -Lr $tmux $tmux.bak
-ln -sf $dir/tmux.conf $tmux
+install_file i3-config $i3
 
-# VIM
-cp -Lr $vim $vim.bak
-ln -sf $dir/vimrc $vim
+install_file i3status-config $i3status
 
-# ZSH
-cp -Lr $zsh $zsh.bak
-ln -sf $dir/zshrc $zsh
+install_file polybar-config $polybar
+
+install_file polybar-launch $polybar
+
+install_file tmux.conf $tmux
+
+install_file vimrc $vim
+
+install_file zshrc $zsh
+
