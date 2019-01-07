@@ -7,6 +7,7 @@ git="$HOME/.gitconfig"
 i3="$HOME/.config/i3/config"
 i3status="$HOME/.config/i3status/config"
 polybar="$HOME/.config/polybar/config"
+polybar_launch="$HOME/.coonfig/polybar/launch.sh"
 tmux="$HOME/.tmux.conf"
 vim="$HOME/.vimrc"
 zsh="$HOME/.zshrc"
@@ -39,6 +40,8 @@ if [ ! -d $(dirname $polybar) ]; then
 fi
 cp -Lr $polybar $polybar.bak
 ln -sf $dir/polybar-config $polybar
+cp -Lr $polybar_launch $polybar_launch.bak
+ln -sf $dir/polybar_launch $polybar_launch
 
 # TMUX
 cp -Lr $tmux $tmux.bak
