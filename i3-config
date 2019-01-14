@@ -22,10 +22,7 @@ set $rmonitor "DP-1-2"
 
 ###### SCRIPTS TO RUN ON I3 STARTUP ###########
 #setup external monitors
-#exec --no-startup-id ~/Desktop/configure_monitors.sh
-exec --no-startup-id xrandr --output $lmonitor --auto --left-of $rmonitor 
-exec --no-startup-id xrandr --output $rmonitor --auto
-exec --no-startup-id xrandr --output $lmonitor --primary
+exec --no-startup-id ~/Desktop/configure_monitors.sh
 exec --no-startup-id compton -b #Xorg window compositor, for window transparency, etc
 #exec --no-startup-id nm-applet #Network connection manager and tray icon
 #exec --no-startup-id volumeicon #ALSA mixer volume icon in tray
