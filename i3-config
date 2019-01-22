@@ -299,7 +299,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #background
-exec --no-startup-id feh --bg-tile ~/Pictures/wallpapers/ubuntublack.png
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/ubuntublack.png
 
 #lock
 #i made a fancy mod of i3lock called i3lock-m2md
