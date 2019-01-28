@@ -19,6 +19,8 @@
 #set mod to windows key
 set $mod Mod4
 
+set $bgimage ~/Pictures/wallpapers/arch_background.png
+
 #set $lmonitor "DP-1-1"
 #set $rmonitor "DP-1-2"
 #set $lastmonitor "eDP-1"
@@ -293,16 +295,16 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #background
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/arch_background.jpg
+exec --no-startup-id feh --bg-fill $bgimage
 
 #lock
 #i made a fancy mod of i3lock called i3lock-m2md
-bindsym $mod+F1 exec i3lock-m2md -i ~/Pictures/m2md/m2md_logo_manual_grey.png -t -e -f 
-bindsym XF86Sleep exec i3lock-m2md -i ~/Pictures/m2md/m2md_logo_manual_grey.png -t -e -f
-exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
-#bindsym $mod+F1 exec i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t
-#exec --no-startup-id xautolock -time 5 -locker 'i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t' -corners 0+0- & 
-# uses a custom script (in applications/ of my dotfiles folder) to detect fullscreen apps and pause xautolock
+#bindsym $mod+F1 exec i3lock-m2md -i $bgimage -t -e -f 
+#bindsym XF86Sleep exec i3lock-m2md -i $bgimage -t -e -f
+#exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
+bindsym $mod+F1 exec i3lock -i $bgimage -e -f -t
+exec --no-startup-id xautolock -time 5 -locker 'i3lock -i $bgimage -e -f -t' -corners 0+0- & 
+exec --no-startup-id ~/.local/bin/lights-on.sh
 exec --no-startup-id ~/usr/local/bin/xautolock_lights_on.sh
 
 #screenshots

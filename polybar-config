@@ -17,23 +17,23 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
-background = #222
-background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
-foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
-;random = #ff00ff
 random=#5599ff
 volume = #55aa55
+
+background = ${xrdb:color0:#222}
+background-alt = #444
+foreground = ${xrdb:color7:#222}
+foreground-alt = ${xrdb:color8:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+alert = #1111
+muted = ${xrdb:color6:#222}
+bright = ${xrdb:color5:#222}
 
 [bar/carbo]
 monitor = DVI-I-1
 width = 100%
-height = 30
+height = 25
 ;offset-x = 1%
 ;offset-y = 1%
 ;radius = 6.0
@@ -329,8 +329,8 @@ label-mode-background = ${colors.primary}
 ;label-focused = %index%
 label-focused = %name%
 label-focused-background = ${module/bspwm.label-focused-background}
-label-focused-foreground = ${colors.random}
-label-focused-underline = ${colors.random}
+label-focused-foreground = ${colors.bright}
+label-focused-underline = ${colors.bright}
 label-focused-padding = ${module/bspwm.label-focused-padding}
 label-focused-font = 4
 
@@ -373,7 +373,7 @@ type = internal/xbacklight
 
 format = <label> <bar>
 label = " "
-label-foreground = ${colors.random}
+label-foreground = ${colors.bright}
 label-font = 4
 
 bar-width = 15
@@ -396,7 +396,7 @@ card = intel_backlight
 type = internal/cpu
 interval = 2
 format-prefix = " "
-format-prefix-foreground = ${colors.random}
+format-prefix-foreground = ${colors.bright}
 ;format-underline = #f95050
 format-prefix-font = 4
 
@@ -411,7 +411,7 @@ interval = 2
 format-prefix = " "
 ;format-prefix = " "
 format-prefix-font = 4
-format-prefix-foreground = ${colors.random}
+format-prefix-foreground = ${colors.bright}
 ;format-underline = #4bffdc
 label = %percentage_used:3%%
 label-font = 4
@@ -423,7 +423,7 @@ interval = 3.0
 
 format-connected-prefix = " "
 format-connected-prefix-font = 4
-format-connected-prefix-foreground = ${colors.random}
+format-connected-prefix-foreground = ${colors.bright}
 
 
 format-connected = <ramp-signal> <label-connected>
@@ -470,7 +470,7 @@ interval = 1
 time = %H:%M:%S
 
 format-prefix = "  "
-format-prefix-foreground = ${colors.random}
+format-prefix-foreground = ${colors.bright}
 ;format-underline = #0a6cf5
 
 label = %time%
@@ -483,7 +483,7 @@ interval = 5
 date = " %a, %e %b"
 
 format-prefix = " "
-format-prefix-foreground = ${colors.random}
+format-prefix-foreground = ${colors.bright}
 ;format-underline = #0a6cf5
 
 label = %date%
@@ -567,17 +567,17 @@ ramp-volume-2 = 
 
 [module/alsa]
 type = internal/alsa
-color-muted = #aa55aa
+color-muted = ${colors.muted}
 
 format-volume-prefix = " "
-format-volume-prefix-foreground = ${colors.random}
+format-volume-prefix-foreground = ${colors.bright}
 
 format-volume = <label-volume> <bar-volume>
 label-volume = " " 
 label-volume-font = 4
 
 format-muted-prefix = " "
-format-muted-prefix-foreground = ${self.color-muted}
+format-muted-prefix-foreground = ${colors.foreground-alt}
 format-muted-prefix-font = 4
 
 format-muted = <label-muted> <bar-volume>
@@ -585,13 +585,13 @@ label-muted = " "
 label-muted-font = 4
 
 bar-volume-width = 15
-bar-volume-foreground-0 = #55aaff
-bar-volume-foreground-1 = #55aaff
-bar-volume-foreground-2 = #55aaff
-bar-volume-foreground-3 = #55aaff
-bar-volume-foreground-4 = #55aaff
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
+bar-volume-foreground-0 = ${colors.muted}
+bar-volume-foreground-1 = ${colors.muted}
+bar-volume-foreground-2 = ${colors.muted}
+bar-volume-foreground-3 = ${colors.muted}
+bar-volume-foreground-4 = ${colors.muted}
+bar-volume-foreground-5 = #{colors.bright}
+bar-volume-foreground-6 = #{colors.warn}
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 4
@@ -613,7 +613,7 @@ warn-temperature = 60
 
 format-prefix      = " "
 format-prefix-font = 4
-format-prefix-foreground = ${colors.random}
+format-prefix-foreground = ${colors.bright}
 
 format-warn-prefix = "T° "
 format-warn-prefix-font = 4
@@ -626,7 +626,7 @@ format-warn = <label-warn>
 
 label = %temperature-c%
 label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
+label-warn-foreground = ${colors.warn}
 
 label-font = 4
 label-warn-font = 4
@@ -744,7 +744,7 @@ menu-2-1-foreground = #00ff00
 [module/powermenu-alt]
 type = custom/text
 content = ""
-content-foreground = ${colors.random}
+content-foreground = ${colors.bright}
 click-left = i3-exit
 
 [settings]

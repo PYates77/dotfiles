@@ -1,7 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-# add the mu-repo tool to the path
-export  PATH=$HOME/Downloads/mu-repo/:$PATH
 
 # custom paths for paul
 export M2MD_REPO="$HOME/dev/m2md-repo"
@@ -16,6 +14,9 @@ export M2MD_DEMO="$M2MD_REPO/apps/demo"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
+
+# Custom colorscheming using wal
+(cat ~/.cache/wal/sequences &)
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random

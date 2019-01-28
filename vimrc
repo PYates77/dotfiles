@@ -41,7 +41,7 @@ set tags=./tags,tags;$HOME
 """"""" lightline config
 set noshowmode
 let g:lightline = {
-            \ 'colorscheme': 'seoul256',
+            \ 'colorscheme' : 'seoul256',
             \ 'component_function': {
             \   'filename':'FilenameForLightline'
             \   }
@@ -67,6 +67,9 @@ let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommig"
 
 """""" ConqueGDB
 noremap <leader>gdb :ConqueGdb<CR>
+
+""""" Wal
+colorscheme wal
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -198,8 +201,11 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme desert
+    colorscheme wal
 catch
+    try 
+        colorscheme desert
+    endtry 
 endtry
 
 set background=dark
