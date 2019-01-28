@@ -17,6 +17,7 @@ set ttimeout
 
 """"syntastic config """"
 let g:syntastic_c_config_file = "syntastic_c_config"
+let g:syntastic_cpp_config_file = "syntastic_cpp_config"
 let g:syntastic_c_include_dirs = ['/usr/include/mysql']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -64,6 +65,9 @@ set stl+=%{ConflictedVersion()}
 """""" Lastplace
 let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommig"
 
+"""""" ConqueGDB
+noremap <leader>gdb :ConqueGdb<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -76,6 +80,7 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+
 " Fast saving
 "nmap <leader>w :w!<cr>
 
@@ -165,7 +170,12 @@ endif
 """"" FOLDS 
 set foldnestmax=1 
 set foldcolumn=1
+" stop fold blocks from opening when navigating with { }
+set foldopen-=block
 noremap zs :setlocal foldmethod=syntax<CR> 
+" stop folds opening unexpectedly by switching to manual foldmethod during insert mode
+autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 
 "saving folds, not super useful with git so I disabled it
 " augroup AutoSaveFolds

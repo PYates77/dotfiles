@@ -7,9 +7,12 @@
 	ui = auto
 [core]
 	editor = vim
+	hooksPath = ~/.git_template/hooks
 [alias]
 	conflicted = !vim +Conflicted
 [pull]
 	rebase = true
 [mu-repo]
 	remote-base-url = https://github.com/PYates77/
+[init]
+	templatedir = ~/.git_template
