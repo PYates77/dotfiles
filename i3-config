@@ -10,7 +10,6 @@
 #   i3-exit from https://github.com/uranix/i3-settings/blob/master/i3-exit
 #   feh - background and image viewer 
 #   xautolock - auto screensaver 
-#   lights-on.sh - detects fullscreen video and prevents screensaver https://github.com/iye/lightsOn/blob/master/lightsOn.sh
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -277,7 +276,8 @@ bindsym XF86Sleep exec i3lock-m2md -i ~/Pictures/m2md/m2md_logo_manual_grey.png 
 exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
 #bindsym $mod+F1 exec i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t
 #exec --no-startup-id xautolock -time 5 -locker 'i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t' -corners 0+0- & 
-exec --no-startup-id ~/.local/bin/lights-on.sh
+# uses a custom script (in applications/ of my dotfiles folder) to detect fullscreen apps and pause xautolock
+exec --no-startup-id ~/usr/local/bin/xautolock_lights_on.sh
 
 #screenshots
 bindsym Print exec "scrot 'screenshot_%Y-%m-%d-%H:%M:%S.png' -e 'mv $f ~/Pictures/screenshots/'"
