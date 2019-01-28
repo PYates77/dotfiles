@@ -7,7 +7,7 @@ git="$HOME/.gitconfig"
 i3="$HOME/.config/i3/config"
 i3status="$HOME/.config/i3status/config"
 polybar="$HOME/.config/polybar/config"
-polybar-launch="$HOME/.config/polybar/launch.sh"
+polybar_launch="$HOME/.config/polybar/launch.sh"
 tmux="$HOME/.tmux.conf"
 vim="$HOME/.vimrc"
 zsh="$HOME/.zshrc"
@@ -20,7 +20,7 @@ install_file()
     if [ ! -d $(dirname $path) ]; then
         mkdir -p $(dirname $path)
     fi
-    cp -Lr $i3 $i3.bak
+    cp -Lr ${path}/${file} ${path}/${file}.bak
     ln -sf $dir/$file $path
 
 }
@@ -35,7 +35,7 @@ install_file i3status-config $i3status
 
 install_file polybar-config $polybar
 
-install_file polybar-launch $polybar
+install_file polybar-launch $polybar_launch
 
 install_file tmux.conf $tmux
 
