@@ -1,33 +1,42 @@
 # i3 config file (v4)
 #
 # This is Paul's i3-gaps config file
-# It is always evolving, so don't think anything is set in stone
+# I make changes to this like every day, so if you think something is wrong, just let me know
+#
 # Dependencies:
 #   compton - for window transparency, etc
-#   volumeicon-alsa - volume widget
-#   i3-battery-popup - https://github.com/rjekker/i3-battery-popup
 #   scrot - screenshots
 #   i3-exit from https://github.com/uranix/i3-settings/blob/master/i3-exit
 #   feh - background and image viewer 
 #   xautolock - auto screensaver 
+#
+# Some other things you might want 
+#   volumeicon-alsa - volume widget
+#   i3-battery-popup - https://github.com/rjekker/i3-battery-popup
+#
+# Note that it won't break your i3 config if you don't have an app, 
+# so no need to comment out all of these lines
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 #set mod to windows key
 set $mod Mod4
 
+# External Monitor Setup (Modify Me!)
 set $lmonitor "DP-1-1"
 set $rmonitor "DP-1-2"
 set $lastmonitor "eDP-1"
-
-###### SCRIPTS TO RUN ON I3 STARTUP ###########
-#setup external monitors
 exec --no-startup-id ~/Desktop/configure_monitors.sh
+
+# Compton 
 exec --no-startup-id compton -b #Xorg window compositor, for window transparency, etc
+
+# System Tray Applets
 #exec --no-startup-id nm-applet #Network connection manager and tray icon
 #exec --no-startup-id volumeicon #ALSA mixer volume icon in tray
 
-exec --no-startup-id i3-battery-popup -n -i /usr/local/share/i3-battery-popup
+# https://github.com/rjekker/i3-battery-popup
+exec --no-startup-id i3-battery-popup -n -i /usr/local/share/i3-battery-popup # Pops up a low battery warning (totally optional)
 
 #mouse touchpad configuration
 exec --no-startup-id synclient ClickFinger3=2 #enable 3 finger 
@@ -222,7 +231,7 @@ bindsym $mod+Mod1+Shift+Control+8 rename workspace to 18
 bindsym $mod+Mod1+Shift+Control+9 rename workspace to 19
 bindsym $mod+Mod1+Shift+Control+0 rename workspace to 20
 
-# set workspaces to different monitors
+# set workspaces to different monitors (only applies if i3 detects the monitors)
 workspace $ws1 output $lmonitor
 workspace $ws2 output $lmonitor
 workspace $ws3 output $lmonitor
@@ -389,10 +398,10 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-# vim:filetype=i3
-
-
 
 # custom windows which should be floating mode by default
 # my snake game
 for_window [title="^Snake$"] floating enable, resize set 600 px 600 px
+
+
+# vim:filetype=i3
