@@ -32,7 +32,7 @@ set $lmonitor "eDP1"
 exec --no-startup-id compton -b #Xorg window compositor, for window transparency, etc
 
 # System Tray Applets
-exec --no-startup-id wcid-client #wlan manager
+exec --no-startup-id wicd-client #wlan manager
 #exec --no-startup-id nm-applet #Network connection manager and tray icon
 #exec --no-startup-id volumeicon #ALSA mixer volume icon in tray
 
