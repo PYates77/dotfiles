@@ -23,9 +23,9 @@
 set $mod Mod4
 
 # External Monitor Setup (Modify Me!)
-#set $lmonitor "DP-1-1"
+set $lmonitor "eDP1"
 #set $rmonitor "DP-1-2"
-#set $lastmonitor "eDP-1"
+#set $lastmonitor "DP-1-1"
 #exec --no-startup-id ~/Desktop/configure_monitors.sh
 
 # Compton 
@@ -299,7 +299,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #background
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/ubuntublack.png
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/ubuntublack.jpg
 
 #lock
 #i made a fancy mod of i3lock called i3lock-m2md
@@ -319,19 +319,15 @@ bindsym --release $mod+Print exec "scrot -u -d 1 'screenshot_%Y-%m-%d-%H:%M:%S.p
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # i3bar config is under ~/.config/i3status/config
- bar {
-     status_command i3status
-	 position top
-	 font pango:monospace 12	
- }
+# bar {
+#     status_command i3status
+#	 position top
+#	 font pango:monospace 12	
+# }
 
 # If using polybar 
 # polybar config is under ~/.config/polybar/config
-# bar {
-    # status_command polybar carbo
-    # position top
-# }
-#exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 
 ########### Function Key Keybindings ##############

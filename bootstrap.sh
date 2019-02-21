@@ -35,7 +35,7 @@ install_file i3status-config $i3status
 
 install_file polybar-config $polybar
 
-install_file polybar-launch $polybar_launch
+install_file polybar_launch $polybar_launch
 
 install_file tmux.conf $tmux
 
