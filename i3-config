@@ -182,8 +182,10 @@ bindsym $mod+Mod1+9 workspace $ws19
 bindsym $mod+Mod1+0 workspace $ws20
 
 #i like to use alt-tab a lot 
-bindsym Mod1+Tab workspace back_and_forth
-bindsym Mod1+Shift+Tab workspace next
+#bindsym Mod1+Tab workspace back_and_forth
+#bindsym Mod1+Shift+Tab workspace next
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab workspace next
 
 workspace_auto_back_and_forth yes
 
@@ -232,6 +234,12 @@ bindsym $mod+Mod1+Shift+Control+9 rename workspace to 19
 bindsym $mod+Mod1+Shift+Control+0 rename workspace to 20
 
 # set workspaces to different monitors (only applies if i3 detects the monitors)
+# we put the lastmonitor workspaces first so that the more likely to be valid monitors are configured last 
+workspace $ws11 output $lastmonitor
+workspace $ws12 output $lastmonitor
+workspace $ws13 output $lastmonitor
+workspace $ws14 output $lastmonitor
+workspace $ws15 output $lastmonitor
 workspace $ws1 output $lmonitor
 workspace $ws2 output $lmonitor
 workspace $ws3 output $lmonitor
@@ -242,11 +250,6 @@ workspace $ws7 output $rmonitor
 workspace $ws8 output $rmonitor
 workspace $ws9 output $rmonitor
 workspace $ws10 output $rmonitor
-workspace $ws11 output $lastmonitor
-workspace $ws12 output $lastmonitor
-workspace $ws13 output $lastmonitor
-workspace $ws14 output $lastmonitor
-workspace $ws15 output $lastmonitor
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -298,15 +301,16 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #background
-exec --no-startup-id feh --bg-tile ~/Pictures/m2md/m2md_logo_manual_grey.png
+set $bgpicture "~/Pictures/wallpapers/M2MD_Logo_Background.png"
+exec_always --no-startup-id feh --bg-tile $bgpicture
 
 #lock
 #i made a fancy mod of i3lock called i3lock-m2md
-bindsym $mod+F1 exec i3lock-m2md -i ~/Pictures/m2md/m2md_logo_manual_grey.png -t -e -f 
-bindsym XF86Sleep exec i3lock-m2md -i ~/Pictures/m2md/m2md_logo_manual_grey.png -t -e -f
-exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
-#bindsym $mod+F1 exec i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t
-#exec --no-startup-id xautolock -time 5 -locker 'i3lock -i ~/Pictures/m2md/m2md_logo_manual_grey.png -e -f -t' -corners 0+0- & 
+bindsym $mod+F1 exec i3lock-m2md -i $bgpicture -t -e -f 
+bindsym XF86Sleep exec i3lock-m2md -i $bgpicture -t -e -f
+#exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
+#bindsym $mod+F1 exec i3lock -i $bgpicture -e -f -t
+exec_always --no-startup-id xautolock -time 10 -locker 'i3lock -i $bgpicture -e -f -t' -corners 0+0- & 
 # uses a custom script (in applications/ of my dotfiles folder) to detect fullscreen apps and pause xautolock
 exec --no-startup-id ~/usr/local/bin/xautolock_lights_on.sh
 

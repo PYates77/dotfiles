@@ -1,0 +1,55 @@
+#!/bin/bash
+
+astyle_args="--style=kr --add-braces --attach-return-type --indent=spaces=4 --convert-tabs"
+
+staged=$(git diff --cached --name-only)
+#echo "Staged:"
+#echo "$staged"
+
+staged_c=$(echo "$staged" | grep "\.c$\|\.h$")
+#echo "Staged c or h files:"
+#echo "$staged_c"
+
+# need to use --options=none to ignore any .astylerc that exists
+astyle_out=$(astyle --options=none $astyle_args --dry-run -v $(echo $staged_c | tr "\n" " "))
+
+#echo "astyle output:"
+#echo "$astyle_out"
+
+need_formatting=$(echo "$astyle_out" | grep "^Formatted" | sed -n "/Formatted \+/s/Formatted \+//p")
+
+if echo "$astyle_out" | grep "^Formatted" >/dev/null 2>&1
+then
+    echo "Staged files do not obey the formatting ruiles:"
+    echo "$need_formatting"
+
+    echo "Would you like to run astyle on these files? [Y]es [N]o [O]verride"
+
+    exec < /dev/tty
+
+    read  userin
+
+    exec <&-
+
+    case "${userin:0:1}" in
+        "Y" | "y")
+            for f in $need_formatting
+            do 
+                astyle $f -n $astyle_args
+                git add $f
+            done
+            exit 0
+            ;;
+        "O" | "o")
+            echo "\nIgnoring astyle rules and committing"
+            exit 0
+            ;;
+    esac
+
+    echo "Please fix the formatting in these files before you commit"
+    exit 1
+else
+    echo "All staged c and h files obey formatting rules!"
+    exit 0
+fi
+

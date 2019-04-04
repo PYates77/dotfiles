@@ -8,6 +8,6 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch
 polybar carbo &
-#polybar spare &
+polybar spare &
 
 echo "Bars launched..."

@@ -17,5 +17,3 @@ git clone https://github.com/scrooloose/nerdcommenter.git
 
 #Conflicted
 git clone https://github.com/christoomey/vim-conflicted.git
-
-

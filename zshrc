@@ -1,13 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# If using mu-repo tool 
 # add the mu-repo tool to the path
-export  PATH=$HOME/Downloads/mu-repo/:$PATH
+#export  PATH=$HOME/Downloads/mu-repo/:$PATH
 
 # custom paths for paul
 export M2MD_REPO="$HOME/dev/m2md-repo"
 export M2MD_RIL="$M2MD_REPO/m2md_ril"
 export M2MD_BUILD="$M2MD_REPO/build"
-export M2MD_DEMO="$M2MD_REPO/apps/demo"
+export M2MD_DEMO="$M2MD_REPO/demo"
 
 # Path to your oh-my-zsh installation.
   export ZSH="/home/pyates/.oh-my-zsh"
@@ -106,6 +108,6 @@ source $ZSH/oh-my-zsh.sh
 alias gitfetchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git fetch --all); done'
 alias gitbranchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git branch -vv); done'
 alias adbw='adb wait-for-device && adb shell'
-eval $(thefuck --alias) 
+##eval $(thefuck --alias)  # if using thefuck
 alias vsplit='vim -O'
 alias :q='exit'

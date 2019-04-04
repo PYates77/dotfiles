@@ -1,0 +1,19 @@
+[Paul's Dotfiles]
+[[ Dependencies ]]
+If you want to use the master branch as-is, you'll want to install the following things first:
+* Vim (vim-gtk for clipboard) - sudo apt-get install vim-gtk 
+* Git - sudo apt-get install git (but you probably already did this)
+* Curl - sudo apt-get install curl
+* Rofi - follow install instructions at https://github.com/davatorium/rofi/blob/next/INSTALL.md
+* Polybar - follow install instructions at https://github.com/jaagr/polybar/wiki/Compiling
+* Compton - sudo apt-get install compton
+* Zsh - sudo apt-get install zsh
+* Powerline fonts - sudo apt-get install fonts-powerline
+* Oh-My-Zsh - https://github.com/robbyrussell/oh-my-zsh
+* Xautolock - sudo apt-get install xautolock
+* Scrot - sudo apt-get install scrot
+* Feh - sudo apt-get install feh
+
+[[ Configuration ]]
+Run other_config_stuff.sh to make default shell zsh and set default text editor to vim
+Restart to update newly installed fonts and default shell

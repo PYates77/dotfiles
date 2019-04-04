@@ -611,7 +611,7 @@ type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 
-format-prefix      = " "
+format-prefix      = " "
 format-prefix-font = 4
 format-prefix-foreground = ${colors.random}
 
