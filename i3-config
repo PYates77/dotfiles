@@ -20,6 +20,8 @@
 set $mod Mod4
 
 set $bgimage ~/Pictures/wallpapers/arch_background.png
+# I wrote a wallpaper auto swapping script that uses pywal, it's in the applications folder
+exec --no-startup-id /usr/local/bin/wallpaper_swap.sh ~/Pictures/wallpapers/active/ 600
 
 #set $lmonitor "DP-1-1"
 #set $rmonitor "DP-1-2"
@@ -33,6 +35,20 @@ exec --no-startup-id compton -b #Xorg window compositor, for window transparency
 #exec --no-startup-id volumeicon #ALSA mixer volume icon in tray
 
 exec --no-startup-id i3-battery-popup -n -i /usr/local/share/i3-battery-popup
+
+########### Mouse and Keyboard Bindings ##############
+exec --no-startup-id setxkbmap -option caps:escape #rebind caps lock to escape
+
+# media keys
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+#kbdbacklight is for my asus laptop, it probably won't work for your system
+bindsym XF86KbdBrightnessUp exec kbdbacklight up #kbdbacklight is a custom script feel free to go mod it
+bindsym XF86KbdBrightnessDown exec kbdbacklight down 
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86TouchpadToggle exec --no-startup-id toggletouchpad.sh # toggle touchpad
 
 #mouse touchpad configuration
 exec --no-startup-id synclient ClickFinger3=2 #enable 3 finger 
@@ -304,8 +320,8 @@ exec --no-startup-id feh --bg-fill $bgimage
 #exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
 bindsym $mod+F1 exec i3lock -i $bgimage -e -f -t
 exec --no-startup-id xautolock -time 5 -locker 'i3lock -i $bgimage -e -f -t' -corners 0+0- & 
-exec --no-startup-id ~/.local/bin/lights-on.sh
-exec --no-startup-id ~/usr/local/bin/xautolock_lights_on.sh
+#exec --no-startup-id ~/.local/bin/lights-on.sh
+exec --no-startup-id /usr/local/bin/xautolock_lights_on.sh
 
 #screenshots
 bindsym Print exec "scrot 'screenshot_%Y-%m-%d-%H:%M:%S.png' -e 'mv $f ~/Pictures/screenshots/'"
@@ -329,17 +345,6 @@ bindsym --release $mod+Print exec "scrot -u -d 1 'screenshot_%Y-%m-%d-%H:%M:%S.p
 # }
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
-
-########### Function Key Keybindings ##############
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-#kbdbacklight is for my asus laptop, it probably won't work for your system
-bindsym XF86KbdBrightnessUp exec kbdbacklight up #kbdbacklight is a custom script feel free to go mod it
-bindsym XF86KbdBrightnessDown exec kbdbacklight down 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-bindsym XF86TouchpadToggle exec --no-startup-id toggletouchpad.sh # toggle touchpad
 
 
 ############### i3-gaps stuff ####################

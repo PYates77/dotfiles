@@ -29,6 +29,7 @@ secondary = ${xrdb:color2:#222}
 alert = #1111
 muted = ${xrdb:color6:#222}
 bright = ${xrdb:color5:#222}
+warn = ${xrdb:color4:#222}
 
 [bar/carbo]
 monitor = DVI-I-1
@@ -590,8 +591,8 @@ bar-volume-foreground-1 = ${colors.muted}
 bar-volume-foreground-2 = ${colors.muted}
 bar-volume-foreground-3 = ${colors.muted}
 bar-volume-foreground-4 = ${colors.muted}
-bar-volume-foreground-5 = #{colors.bright}
-bar-volume-foreground-6 = #{colors.warn}
+bar-volume-foreground-5 = ${colors.bright}
+bar-volume-foreground-6 = ${colors.warn}
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 4

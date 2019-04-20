@@ -110,3 +110,8 @@ alias adbw='adb wait-for-device && adb shell'
 eval $(thefuck --alias) 
 alias vsplit='vim -O'
 alias :q='exit'
+
+
+# Keybindings
+bindkey '^K' up-line-or-search
+bindkey '^J' down-line-or-search

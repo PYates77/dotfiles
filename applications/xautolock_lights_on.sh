@@ -13,10 +13,10 @@ do
     if [ -z "$full" ]
     then
         xautolock -enable
-        #echo "xautolock enabled"
+        echo "xautolock enabled"
     else
         xautolock -disable
-        #echo "fullscreen detected. xautolock disabled"
+        echo "fullscreen detected. xautolock disabled"
     fi
     sleep 120; #query every two minutes
 done
