@@ -72,6 +72,7 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -111,7 +112,8 @@ eval $(thefuck --alias)
 alias vsplit='vim -O'
 alias :q='exit'
 
-
-# Keybindings
-bindkey '^K' up-line-or-search
-bindkey '^J' down-line-or-search
+#### Keybindings ####
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+bindkey "^K" up-line-or-beginning-search
+bindkey "^J" down-line-or-beginning-search
