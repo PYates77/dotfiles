@@ -27,6 +27,7 @@ set $lmonitor "DP-1-1"
 set $rmonitor "DP-1-2"
 set $lastmonitor "eDP-1"
 exec --no-startup-id ~/Desktop/configure_monitors.sh
+bindsym $mod+F1 exec ~/Desktop/configure_monitors.sh
 
 # Compton 
 exec --no-startup-id compton -b #Xorg window compositor, for window transparency, etc
@@ -46,6 +47,11 @@ exec --no-startup-id synclient VertEdgeScroll=0 #turn off vertical scroll on rig
 exec --no-startup-id synclient HorizTwoFingerScroll=1 #turn on horizontal scroll
 #just type synclient in terminal to see list of options
 # note: it may be smarter to move this section to xorg.conf, but that's scarier than this way
+
+#keyboard configuration
+# exec --no-startup-id setxkbmap -option caps:swapescape #swap caps lock and escape
+# exec --no-startup-id setxkbmap -option caps:escape #set caps lock to escape (without setting escape to caps lock)
+exec --no-startup-id setxkbmap -option caps:none #disable caps lock
 
 
 ###### GENERAL I3 SETTINGS #################
@@ -109,11 +115,11 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym $mod+b split h
+# split horizontally (burger)
+bindsym $mod+b split v
 
-# split in vertical orientation
-bindsym $mod+v split v
+# split in vertical orientation (vsplit)
+bindsym $mod+v split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -258,10 +264,10 @@ bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
 # Default method using i3-nagbar
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # fancy method using custom script i3-exit from https://github.com/uranix/i3-settings/blob/master/i3-exit
 # i installed i3-exit in /usr/local/bin
-bindsym $mod+Shift+e exec i3-exit
+# bindsym $mod+Shift+e exec i3-exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -301,12 +307,12 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #background
-set $bgpicture "~/Pictures/wallpapers/M2MD_Logo_Background.png"
+set $bgpicture ~/Pictures/wallpapers/M2MD_Logo_Background.png
 exec_always --no-startup-id feh --bg-tile $bgpicture
 
 #lock
 #i made a fancy mod of i3lock called i3lock-m2md
-bindsym $mod+F1 exec i3lock-m2md -i $bgpicture -t -e -f 
+bindsym $mod+exc exec i3lock-m2md -i $bgpicture -t -e -f 
 bindsym XF86Sleep exec i3lock-m2md -i $bgpicture -t -e -f
 #exec_always --no-startup-id xautolock -time 10 -locker /usr/local/bin/smart_start_i3lock.sh -corners 0+0- -notify 8 -notifier /usr/local/bin/smart_warn_i3lock.sh &
 #bindsym $mod+F1 exec i3lock -i $bgpicture -e -f -t

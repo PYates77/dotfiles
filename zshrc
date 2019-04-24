@@ -110,4 +110,3 @@ alias gitbranchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" &
 alias adbw='adb wait-for-device && adb shell'
 ##eval $(thefuck --alias)  # if using thefuck
 alias vsplit='vim -O'
-alias :q='exit'
