@@ -35,7 +35,7 @@ noremap <leader>ne :lne<CR>
 noremap <leader>pe :lp<CR>
 
 """"""" ctags config
-" set up ctags recursion to search up the filetree until home directory
+" set up ctags search up the filetree until home directory
 set tags=./tags,tags;$HOME
 
 """"""" lightline config
@@ -67,6 +67,11 @@ let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommig"
 
 """""" ConqueGDB
 noremap <leader>gdb :ConqueGdb<CR>
+
+"""""" FZF (fuzzy find) 
+" This requires fzf to already be installed, and installing from git sets the install location to ~/.fzf so we use that
+set rtp+=~/.fzf
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -107,6 +112,9 @@ let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+
+" Add all subfolders to path (for vim find)
+set path+=**
 
 " Turn on the Wild menu
 set wildmenu
@@ -191,6 +199,7 @@ autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | se
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable 
+let g:load_doxygen_syntax=1
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
@@ -389,6 +398,13 @@ map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Snippets
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Create h file defines " TODO make this better
+noremap <Leader>hfile "%p:s/\./_/gI__A__VU0veyI#ifndef o#define po#endif /* pa */k
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

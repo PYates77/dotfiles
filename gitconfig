@@ -16,3 +16,7 @@
 	remote-base-url = https://github.com/PYates77/
 [init]
 	templatedir = ~/.git_template
+[diff]
+	tool = vimdiff
+[merge]
+	ff = only

@@ -41,7 +41,7 @@ then
             exit 0
             ;;
         "O" | "o")
-            echo "\nIgnoring astyle rules and committing"
+            echo "Ignoring astyle rules and committing"
             exit 0
             ;;
     esac

@@ -4,6 +4,10 @@
 # If using mu-repo tool 
 # add the mu-repo tool to the path
 #export  PATH=$HOME/Downloads/mu-repo/:$PATH
+export GOPATH=$HOME/go
+export GOROOT=$HOME/software/go
+export PATH=$GOROOT/bin:$PATH
+export PATH=$HOME/software/android-studio/bin:$PATH
 
 # custom paths for paul
 export M2MD_REPO="$HOME/dev/m2md-repo"
@@ -73,6 +77,7 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -110,3 +115,22 @@ alias gitbranchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" &
 alias adbw='adb wait-for-device && adb shell'
 ##eval $(thefuck --alias)  # if using thefuck
 alias vsplit='vim -O'
+alias vsp='vim -O'
+alias cb='xclip -selection clipboard'
+
+#### Keybindings ####
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+bindkey "^K" up-line-or-beginning-search
+bindkey "^J" down-line-or-beginning-search
+
+
+
+###  Keyboard configuration
+# setxkbmap -option caps:swapescape #swap caps lock and escape
+setxkbmap -option caps:escape #set caps lock to escape (without setting escape to caps lock)
+# setxkbmap -option caps:none #disable caps lock
+
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
