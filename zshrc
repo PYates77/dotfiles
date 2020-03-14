@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # add the mu-repo tool to the path
 export  PATH=$HOME/Downloads/mu-repo/:$PATH
+export PATH=$PATH:/usr/local/go/bin
 
 # custom paths for paul
 export M2MD_REPO="$HOME/dev/m2md-repo"

@@ -399,6 +399,7 @@ mode "$mode_gaps_outer" {
 # custom windows which should be floating mode by default
 # my snake game
 for_window [title="^Snake$"] floating enable, resize set 600 px 600 px
+for_window [title="^Ball$"] floating enable, resize set 600 px 600 px
 
 
 # vim:filetype=i3
