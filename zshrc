@@ -112,6 +112,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias gitfetchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git fetch --all); done'
 alias gitbranchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git branch -vv); done'
+alias gitstatusall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git status); done'
 alias adbw='adb wait-for-device && adb shell'
 ##eval $(thefuck --alias)  # if using thefuck
 alias vsplit='vim -O'

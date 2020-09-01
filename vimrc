@@ -207,9 +207,18 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme desert
+    if &diff
+        "make vimdiff not look abysmal
+        hi DiffAdd ctermbg=17
+        hi DiffChange ctermbg=18
+        hi DiffDelete ctermbg=16
+        hi DiffText ctermbg=8
+    else
+        colorscheme desert
+    endif
 catch
 endtry
+
 
 set background=dark
 
@@ -231,7 +240,7 @@ set ffs=unix,dos,mac
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
 set nowb
 set noswapfile
@@ -398,6 +407,9 @@ map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+" Set vim to save clipboard register to system clipboard on exit
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

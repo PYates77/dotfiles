@@ -149,7 +149,8 @@ cursor-scroll = ns-resize
 
 [bar/spare]
 ; literally a copy of carbo, but with not much on it
-monitor = DP-1-2
+#monitor = DP-1-2
+monitor = HDMI-1
 width = 100%
 height = 40
 fixed-center = false
