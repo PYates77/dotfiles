@@ -97,4 +97,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias adbw='adb wait-for-device && adb shell'
 alias vsplit='vim -O'
+alias vsp='vim -O'
+alias clip='xclip -selection clipboard'
+
+#### Keybindings ####
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+bindkey "^K" up-line-or-beginning-search
+bindkey "^J" down-line-or-beginning-search
 #alias :q='exit'
