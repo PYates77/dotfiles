@@ -28,9 +28,9 @@ install_file()
 
 install_file compton.conf $compton
 
-install_file gitconfig $git
+#install_file gitconfig $git
 
-install_file git_template $git_template
+#install_file git_template $git_template
 
 install_file i3-config $i3
 
@@ -40,9 +40,9 @@ install_file polybar-config $polybar
 
 install_file polybar_launch $polybar_launch
 
-install_file tmux.conf $tmux
+#install_file tmux.conf $tmux
 
-install_file vimrc $vim
+#install_file vimrc $vim
 
-install_file zshrc $zsh
+#install_file zshrc $zsh
 

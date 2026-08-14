@@ -5,7 +5,7 @@ If you want to use the master branch as-is, you'll want to install the following
 * Git - sudo apt-get install git (but you probably already did this)
 * Curl - sudo apt-get install curl
 * Rofi - follow install instructions at https://github.com/davatorium/rofi/blob/next/INSTALL.md
-* Polybar - follow install instructions at https://github.com/jaagr/polybar/wiki/Compiling
+* Polybar - sudo apt-get install polybar
 * Compton - sudo apt-get install compton
 * Zsh - sudo apt-get install zsh
 * Powerline fonts - sudo apt-get install fonts-powerline
