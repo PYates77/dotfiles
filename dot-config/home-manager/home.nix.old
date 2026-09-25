@@ -1,0 +1,42 @@
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
+  # You can import other home-manager modules here
+  imports = [
+    ./gtk.nix
+    ./vim/neovim.nix
+    ./vim/vim.nix
+    ./waybar/default.nix
+  ];
+
+  home = {
+    username = "paul";
+    homeDirectory = "/home/paul";
+  };
+
+  # Add stuff for your user as you see fit:
+  #programs.neovim.enable = true;
+  home.packages = with pkgs; [ 
+    zsh
+    wofi
+    wofi-power-menu
+    btop
+    networkmanager_dmenu
+    hyprpaper
+    nerdfonts
+    bluez # bluetoothctl
+
+    ## games
+    steam 
+  ];
+
+  # Enable home-manager and git
+  programs.home-manager.enable = true;
+  programs.git.enable = true;
+
+  home.stateVersion = "25.05";
+}
