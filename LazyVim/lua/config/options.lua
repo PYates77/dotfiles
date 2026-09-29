@@ -9,3 +9,13 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
+vim.o.list = true -- show whitespace
+
+-- Don't yank to the clipboard buffer by default
+vim.opt.clipboard = ""
+
+-- use the name of the root project for the window title if we can
+vim.opt.title = true
+vim.opt.titlelen = 0
+vim.opt.titlestring = "%{luaeval('vim.fn.fnamemodify(LazyVim.root(), \":t\")')}"
+
