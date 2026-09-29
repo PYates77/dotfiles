@@ -1,27 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# If using mu-repo tool 
-# add the mu-repo tool to the path
-#export  PATH=$HOME/Downloads/mu-repo/:$PATH
-export GOPATH=$HOME/go
-export GOROOT=$HOME/software/go
-export PATH=$GOROOT/bin:$PATH
-export PATH=$HOME/software/android-studio/bin:$PATH
-
-# custom paths for paul
-export M2MD_REPO="$HOME/dev/m2md-repo"
-export M2MD_RIL="$M2MD_REPO/m2md_ril"
-export M2MD_BUILD="$M2MD_REPO/build"
-export M2MD_DEMO="$M2MD_REPO/demo"
-
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/pyates/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
+ZSH_THEME="sunrise"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -71,16 +58,43 @@ ZSH_THEME="agnoster"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+ # oh-my-zsh uses this, neede if custom window title function is going to work (see below)
+export DISABLE_AUTO_TITLE="true"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  vi-mode
+  zsh-vi-mode
 )
 
+# fix the bind for zsh-vi-mode
+# The plugin will auto execute this zvm_after_lazy_keybindings function
+function zvm_after_init() {
+    # Insert mode
+    zvm_bindkey viins '^J' down-line-or-beginning-search
+    zvm_bindkey viins '^K' up-line-or-beginning-search
+    zvm_bindkey viins "${terminfo[kcud1]}" down-line-or-beginning-search
+    zvm_bindkey viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+}
+
+function zvm_after_lazy_keybindings() {
+    # Normal mode
+    zvm_bindkey vicmd '^J' down-line-or-beginning-search
+    zvm_bindkey vicmd '^K' up-line-or-beginning-search
+    zvm_bindkey vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+    zvm_bindkey vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search
+}
+
 source $ZSH/oh-my-zsh.sh
+
+#### Keybindings ####
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+bindkey "^K" up-line-or-beginning-search
+bindkey "^J" down-line-or-beginning-search
 
 # User configuration
 
@@ -90,11 +104,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='nvim'
+ else
+   export EDITOR='vim'
+ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -110,28 +124,55 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias gitfetchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git fetch --all); done'
-alias gitbranchall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git branch -vv); done'
-alias gitstatusall='cd /home/pyates/dev/m2md-repo; for d in ./*/ ; do (cd "$d" && pwd && git status); done'
-alias adbw='adb wait-for-device && adb shell'
-##eval $(thefuck --alias)  # if using thefuck
-alias vsplit='vim -O'
-alias vsp='vim -O'
-alias cb='xclip -selection clipboard'
+#alias vsplit='vim -O'
+#alias vsp='vim -O'
+#alias clip='xclip -selection clipboard'
 
-#### Keybindings ####
-bindkey "^[OA" up-line-or-beginning-search
-bindkey "^[OB" down-line-or-beginning-search
-bindkey "^K" up-line-or-beginning-search
-bindkey "^J" down-line-or-beginning-search
+export PATH="$PATH:/opt/nvim/"
 
+# PRO1
+export PATH=$HOME/.local/bin:$PATH
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
+# node version manager - TODO: do I use this?
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-###  Keyboard configuration
-# setxkbmap -option caps:swapescape #swap caps lock and escape
-setxkbmap -option caps:escape #set caps lock to escape (without setting escape to caps lock)
-# setxkbmap -option caps:none #disable caps lock
+###### CUSTOM WINDOW TITLE #####
+CUSTOM_TERM_TITLE=""
 
+# call zshtitle <newtitle> to set custom title
+# call zshtitle with no args to unset custom title
+zshtitle() {
+  if [[ -z "$1" ]]; then
+    CUSTOM_TERM_TITLE=""
+    echo "zsh title reset to auto"
+    if [ -n "$functions[omz_termsupport_cwd]" ]; then omz_termsupport_cwd; fi
+  else
+    echo "Custom title set "
+    CUSTOM_TERM_TITLE="$1"
+    print -n "\e]0;${CUSTOM_TERM_TITLE}\a"
+  fi
+}
 
+# Intercept Oh My Zsh hooks with prompt expansion (-P) enabled
+omz_termsupport_cwd() {
+  if [[ -n "$CUSTOM_TERM_TITLE" ]]; then
+    print -n "\e]0;${CUSTOM_TERM_TITLE}\a"
+  else
+    # Added -P so %~ expands to your current path (e.g., ~ or ~/Downloads)
+    print -Pn "\e]0;%~ \a"
+  fi
+}
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+omz_termsupport_preexec() {
+  if [[ -n "$CUSTOM_TERM_TITLE" ]]; then
+    print -n "\e]0;${CUSTOM_TERM_TITLE}\a"
+  else
+    # Added -P so %~ expands, combined with the running command name
+    local CMD=${1[(w)1]}
+    print -Pn "\e]0;${CMD} (%~)\a"
+  fi
+}
+###### END CUSTOM WINDOW TITLE #####
