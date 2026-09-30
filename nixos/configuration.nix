@@ -45,18 +45,11 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+  console = {
+    #font = "Lat2-Terminus16";
+    font = "default8x16";
+    keyMap = "us";
+  };
 
   # Logind
   #services.logind.powerKey = "suspend"; # TODO: doesn't work
@@ -73,15 +66,53 @@
   services.printing.enable = true;
 
   # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
+  security.rtkit.enable = true; # rtkit is optional but recommended (realtime kit)
   services.pipewire = {
     enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
   };
-
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+
+  #programs.brightnessctl.enable = true;
+  programs.kbdlight.enable = true;
+  hardware.acpilight.enable = true;
+  # Fix backlight keybinding
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      # xbacklight is a python script provided by acpilight
+      # it has nothing to do with X11, don't panic
+      { keys = [ 224 ]; events = [ "key" ]; command = "xbacklight -inc 10"; }
+      { keys = [ 225 ]; events = [ "key" ]; command = "xbacklight -dec 10"; }
+    ];
+  };
+
+  fonts = {
+    enableDefaultPackages = true; # turn on if you just want a general set of default fonts
+    packages = with pkgs; [
+      nerd-fonts.hack
+      noto-fonts-cjk-sans
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        #monospace = [ "Hack Nerd Font" ];
+        #serif = [ "Hack Nerd Font" ];
+        #sansSerif = [ "Hack Nerd Font" ];
+        #serif = [  "Liberation Serif" "Vazirmatn" ]; # example
+        #sansSerif = [ "Ubuntu" "Vazirmatn" ]; # example
+      };
+    };
+  };
 
   # Here are the unfree packages I want: _1password-cli
   # nixpkgs.config.allowUnfree = true;
@@ -94,7 +125,7 @@
   };
 
   # docker
-  virtualisation.docker.enable = true;
+  #virtualisation.docker.enable = true; # TODO decide if I need this
 
   ##### PROGRAMS #####
   programs = {
@@ -103,72 +134,28 @@
       withUWSM = true;
       xwayland.enable = false;
     };
-    waybar.enable = true;
+    # enabling waybar here runs as systemd service which doesn't handle mouse click correctly
+    # just set it up in home manager and bind it to run-once in hyprland config
+    waybar.enable = false;
     hyprlock.enable = true;
     zsh.enable = true;
-
-/* 
-    zsh = {
-      enable = true; # how to enable for only one user
-      # This shit isn't working: 
-      interactiveShellInit = ''
-        bindkey "^[OA" up-line-or-beginning-search
-        bindkey "^[OB" down-line-or-beginning-search
-        bindkey "^K" up-line-or-beginning-search
-        bindkey "^J" down-line-or-beginning-search
-      '';
-    };
-
-    zsh.ohMyZsh = {
-      enable = true;
-      #theme = "agnoster";
-      # theme = "superjarin";
-      theme = "sunrise";
-      plugins = [ "git" ];
-    };
-*/
-
-/* # TODO REMOVE
-    # This configures for all users, so this is a no go
-    git = {
-      enable = true;
-      config = { 
-        user.name = "Paul Yates";
-        user.email = "paul.maxyat@gmail.com";
-        core.editor =  "vim";
-        push.default = "simple";
-        color.ui = "auto";
-        pull.rebase = "true";
-        diff.tool = "vimdiff";
-        merge.ff = "only";
-        rerere.enable = "false";
-        aliases = {
-         graph = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
-        };
-      };
-    };
-*/
-  };
-
-  #programs.brightnessctl.enable = true;
-  programs.kbdlight.enable = true;
-  hardware.acpilight.enable = true;
-
-  hardware.bluetooth = { 
-    enable = true;
-    powerOnBoot = true;
   };
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    ## essential basic apps
+    file
+    vim
     wget
     git
+    tmux
 
-    wl-clipboard # wayland clipboard support
+    # low-level utilities
+    psmisc
 
     # hypr ecosystem
+    hyprpaper
     hyprlang
     hypridle
     hyprlock
@@ -176,12 +163,13 @@
     hyprtoolkit
     hyprpicker
     hyprsunset
+    wl-clipboard # wayland clipboard support
 
     home-manager
 
     # TODO: move these to homemanager
     fastfetch
-    inputs.anifetch.packages.${pkgs.stdenv.hostPlatform.system}.default 
+    inputs.anifetch.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     libgcc
     # dislocker # mount windows partition TODO
@@ -206,15 +194,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # Fix backlight keybinding
-  services.actkbd = {
-    enable = true;
-    bindings = [
-      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
-      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
-    ];
-  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
